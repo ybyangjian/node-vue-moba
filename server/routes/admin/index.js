@@ -66,4 +66,17 @@ module.exports = app => {
         req.Model = require(`../../models/${modelName}`)
         next()
     }, router)
+
+
+
+    const multer = require('multer')
+    // 图片上传的地址
+    const upload = multer({dest:__dirname + '/../../uploads'})
+    //图片上传,使用multer插件处理,中间upload.single('file')表示单个文件上传，文件名叫file。原生的req请求没有file，是由upload加上去的
+    app.post('/admin/api/upload',upload.single('file'),async (req,res) => {
+        
+        const file = req.file
+        file.url = `http://localhost:3000/uploads/${file.filename}`
+        res.send(file)
+    })
 }

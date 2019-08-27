@@ -4,15 +4,23 @@ import Main from './views/Main.vue'
 import CategoryEdit from './views/CategoryEdit.vue'
 import CategoryList from './views/CategoryList.vue'
 
+import ItemEdit from './views/ItemEdit.vue'
+import ItemList from './views/ItemList.vue'
+
+import HeroEdit from './views/HeroEdit.vue'
+import HeroList from './views/HeroList.vue'
+
 
 Vue.use(Router)
 
 export default new Router({
   routes: [{
-      path: '/',
-      name: 'main',
-      component: Main,
-      children: [{
+    path: '/',
+    name: 'main',
+    component: Main,
+    children: [
+      // 分类
+      {
         path: '/categories/create',
         component: CategoryEdit
       }, {
@@ -22,8 +30,33 @@ export default new Router({
       }, {
         path: '/categories/list',
         component: CategoryList
-      }]
-    },
+      },
 
-  ]
+      // 物品
+      {
+        path: '/items/create',
+        component: ItemEdit
+      }, {
+        path: '/items/edit/:id',
+        component: ItemEdit,
+        props: true //表示当路由的id直接注入到ItemEdit页面，可以直接使用
+      }, {
+        path: '/items/list',
+        component: ItemList
+      },
+
+      // 英雄
+      {
+        path: '/Heroes/create',
+        component: HeroEdit
+      }, {
+        path: '/Heroes/edit/:id',
+        component: HeroEdit,
+        props: true //表示当路由的id直接注入到HearEdit页面，可以直接使用
+      }, {
+        path: '/Heroes/list',
+        component: HeroList
+      }
+    ]
+  }]
 })
