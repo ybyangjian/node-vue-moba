@@ -10,6 +10,9 @@ import ItemList from './views/ItemList.vue'
 import HeroEdit from './views/HeroEdit.vue'
 import HeroList from './views/HeroList.vue'
 
+import ArticleEdit from './views/ArticleEdit.vue'
+import ArticleList from './views/ArticleList.vue'
+
 
 Vue.use(Router)
 
@@ -47,15 +50,28 @@ export default new Router({
 
       // 英雄
       {
-        path: '/Heroes/create',
+        path: '/heroes/create',
         component: HeroEdit
       }, {
-        path: '/Heroes/edit/:id',
+        path: '/heroes/edit/:id',
         component: HeroEdit,
         props: true //表示当路由的id直接注入到HearEdit页面，可以直接使用
       }, {
-        path: '/Heroes/list',
+        path: '/heroes/list',
         component: HeroList
+      },
+
+       // 文章
+       {
+        path: '/articles/create',
+        component: ArticleEdit
+      }, {
+        path: '/articles/edit/:id',
+        component: ArticleEdit,
+        props: true //表示当路由的id直接注入到HearEdit页面，可以直接使用
+      }, {
+        path: '/articles/list',
+        component: ArticleList
       }
     ]
   }]

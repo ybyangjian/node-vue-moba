@@ -48,14 +48,14 @@ export default {
         },
         async fetch() {
             /**
-             * 获取分类详情
+             * 获取物品详情
              */
             const res = await this.$http.get(`rest/items/${this.id}`);
             this.model = res.data;
         },
         async save() {
             /**
-             * 添加分类和修改分类
+             * 添加物品和修改物品
              *
              */
             let res;
