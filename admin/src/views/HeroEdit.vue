@@ -109,8 +109,9 @@
                             <el-form-item label="图标">
                                 <el-upload
                                     class="avatar-uploader"
-                                    :action="$http.defaults.baseURL + '/upload'"
+                                    :action="uploadUrl"
                                     :show-file-list="false"
+                                    :headers="getAuthHeaders()"
                                     :on-success="res => $set(item,'icon',res.url)"
                                 >
                                     <img v-if="item.icon" :src="item.icon" class="avatar" />
@@ -225,28 +226,5 @@ export default {
 </script>
 
 <style>
-.avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-    border-color: #409eff;
-}
-.avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 5em;
-    height: 5em;
-    line-height: 5em;
-    text-align: center;
-}
-.avatar {
-    width: 5em;
-    height: 5em;
-    display: block;
-    border-radius: 50%;
-}
+
 </style>

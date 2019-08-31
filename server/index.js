@@ -3,6 +3,9 @@ const express = require('express')
 
 const app = express()
 
+// 在express的实例上设置一个变量，这个应该放在环境变量上
+app.set('secret','asdsa5212ad5qer52dgsgsd2221689')
+
 // 跨域模块
 app.use(require('cors')())
 //让express接受json数据
