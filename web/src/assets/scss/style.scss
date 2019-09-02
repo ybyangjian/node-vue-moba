@@ -21,6 +21,10 @@ a {
     color: #999;
 }
 
+p {
+    line-height: 1.5rem;
+}
+
 
 // 工具类，each是个循环
 @each $colorKey,
@@ -47,7 +51,8 @@ $size in $font-sizes {
         font-size: $size * $base-font-size
     }
 }
-.text-ellipsis{
+
+.text-ellipsis {
     display: inline-block;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -181,8 +186,8 @@ $type in $spacing-types {
         padding-bottom: 0.2rem;
 
         &.active {
-            color: map-get($colors,'primary');
-            border-bottom-color: map-get($colors,'primary');
+            color: map-get($colors, 'primary');
+            border-bottom-color: map-get($colors, 'primary');
         }
     }
 
@@ -191,7 +196,7 @@ $type in $spacing-types {
             color: map-get($colors, 'white');
 
             &.active {
-                border-bottom-color:map-get($colors, 'white');
+                border-bottom-color: map-get($colors, 'white');
             }
         }
     }
@@ -217,5 +222,13 @@ $type in $spacing-types {
         width: 0.7692rem;
         height: 0.7692rem;
         background-position: 38.577% 52.076%;
+    }
+}
+
+
+// 边框
+@each $dir in (top, right, bottom, left) {
+    .border-#{$dir} {
+        border-#{$dir}: 1px solid $border-color;
     }
 }
