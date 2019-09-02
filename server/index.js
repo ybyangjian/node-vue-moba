@@ -18,6 +18,7 @@ app.use('/uploads', express.static(__dirname + '/uploads'))
 require('./plugins/db')(app)
 // 让admin中的index.js引用
 require('./routes/admin')(app)
+require('./routes/web')(app)
 
 app.listen(3000,() =>{
     console.log('http://localhost:3000')

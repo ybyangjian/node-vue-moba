@@ -47,6 +47,12 @@ $size in $font-sizes {
         font-size: $size * $base-font-size
     }
 }
+.text-ellipsis{
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
 
 // flex定义
@@ -56,6 +62,10 @@ $size in $font-sizes {
 
 .flex-column {
     flex-direction: column;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
 }
 
 
@@ -162,16 +172,50 @@ $type in $spacing-types {
     padding: 0.3rem 0.6rem;
 }
 
-// 导航菜单
+// 导航菜单,&表示同级的
 .nav {
+    display: flex;
+
     .nav-item {
         border-bottom: 3px solid transparent;
         padding-bottom: 0.2rem;
 
         &.active {
-            border-bottom: 3px solid #fff;
+            color: map-get($colors,'primary');
+            border-bottom-color: map-get($colors,'primary');
         }
     }
 
+    &.nav-inverse {
+        .nav-item {
+            color: map-get($colors, 'white');
 
+            &.active {
+                border-bottom-color:map-get($colors, 'white');
+            }
+        }
+    }
+
+}
+
+
+
+
+// 精灵图 sprite
+.sprite {
+    background: url('../images/index.png') no-repeat 0 0;
+    background-size: 28.8462rem;
+    display: inline-block;
+
+    &.sprite-news {
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 63.546% 15.517%;
+    }
+
+    &.sprite-arrow {
+        width: 0.7692rem;
+        height: 0.7692rem;
+        background-position: 38.577% 52.076%;
+    }
 }

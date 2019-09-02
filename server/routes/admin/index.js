@@ -53,7 +53,7 @@ module.exports = app => {
             queryOptions.populate = 'parent'
         }
         // 因为这里要进行上级查询，所以替换更通用的写法
-        const items = await req.Model.find().setOptions(queryOptions).limit(10)
+        const items = await req.Model.find().setOptions(queryOptions).limit(100)
         res.send(items)
     })
 

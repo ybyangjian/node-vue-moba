@@ -11,11 +11,13 @@ const schema = new mongoose.Schema({
         ref: 'Category'
     }],
     // 文章正文
-    body:{
-        type:String
-    }
+    body: {
+        type: String
+    },
 
-
+}, {
+    // 创建时间
+    timestamps: true
 })
 
 module.exports = mongoose.model('Article', schema)

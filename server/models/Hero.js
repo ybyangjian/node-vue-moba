@@ -77,5 +77,5 @@ const schema = new mongoose.Schema({
     }]
 
 })
-
-module.exports = mongoose.model('Hero', schema)
+    // 第三个参数指定数据库表名
+module.exports = mongoose.model('Hero', schema,'heroes')
