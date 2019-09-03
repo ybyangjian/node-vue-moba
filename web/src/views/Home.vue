@@ -31,7 +31,9 @@
         <!-- 新闻资讯 -->
         <m-list-card icon="menu" title="新闻资讯" :categories="newCats">
             <template #items="{category}">
-                <router-link tag="div" :to="`/articles/${news._id}`"
+                <router-link
+                    tag="div"
+                    :to="`/articles/${news._id}`"
                     class="py-2 fs-lg d-flex"
                     v-for="(news,index) in category.newsList"
                     :key="index"
@@ -47,18 +49,19 @@
         <!-- 英雄列表 -->
         <m-list-card icon="card-hero" title="英雄列表" :categories="heroCats">
             <template #items="{category}">
-               <div class="d-flex flex-wrap" style="margin:0 -0.5rem;">
-                    <div
-                    class="p-2 text-center" style="width:20%"
-                    v-for="(hero,index) in category.heroesList"
-                    :key="index"
-                >
-                <img :src="hero.avatar" class="w-100">
-                <div>
-                    {{ hero.name }}
+                <div class="d-flex flex-wrap" style="margin:0 -0.5rem;">
+                    <router-link
+                        tag="div"
+                        :to="`/heroes/${hero._id}`"
+                        class="p-2 text-center"
+                        style="width:20%"
+                        v-for="(hero,index) in category.heroesList"
+                        :key="index"
+                    >
+                        <img :src="hero.avatar" class="w-100" />
+                        <div>{{ hero.name }}</div>
+                    </router-link>
                 </div>
-                </div>
-               </div>
             </template>
         </m-list-card>
 
@@ -84,7 +87,7 @@ export default {
                 }
             },
             newCats: [],
-            heroCats:[]
+            heroCats: []
         };
     },
     methods: {

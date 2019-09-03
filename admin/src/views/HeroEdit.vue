@@ -4,7 +4,7 @@
         <!-- @submit.native.prevent 提交表单时不要默认提交 -->
         <el-form label-width="120px" @submit.native.prevent="save">
             <!-- value表示name的pane默认显示 -->
-            <el-tabs value="skills" type="border-card">
+            <el-tabs value="basic" type="border-card">
                 <el-tab-pane label="基本信息" name="basic">
                     <el-form-item label="名称">
                         <el-input v-model="model.name"></el-input>
@@ -16,11 +16,25 @@
                         <!-- action 是图片的上传地址，$http.defaults.baseURL 可以获取根路由 -->
                         <el-upload
                             class="avatar-uploader"
-                            :action="$http.defaults.baseURL + '/upload'"
+                            :headers="getAuthHeaders()"
+                            :action="uploadUrl"
                             :show-file-list="false"
-                            :on-success="afterUpload"
+                            :on-success="res => $set(model,'avatar',res.url)"
                         >
                             <img v-if="model.avatar" :src="model.avatar" class="avatar" />
+                            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        </el-upload>
+                    </el-form-item>
+                    <el-form-item label="Banner">
+                        <!-- action 是图片的上传地址，$http.defaults.baseURL 可以获取根路由 -->
+                        <el-upload
+                            class="avatar-uploader"
+                            :headers="getAuthHeaders()"
+                            :action="uploadUrl"
+                            :show-file-list="false"
+                            :on-success="res => $set(model,'banner',res.url)"
+                        >
+                            <img v-if="model.banner" :src="model.banner" class="avatar" />
                             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                         </el-upload>
                     </el-form-item>
@@ -106,6 +120,12 @@
                             <el-form-item label="名称">
                                 <el-input v-model="item.name"></el-input>
                             </el-form-item>
+                            <el-form-item label="冷却值">
+                                <el-input v-model="item.delay"></el-input>
+                            </el-form-item>
+                            <el-form-item label="消耗">
+                                <el-input v-model="item.cost"></el-input>
+                            </el-form-item>
                             <el-form-item label="图标">
                                 <el-upload
                                     class="avatar-uploader"
@@ -118,14 +138,37 @@
                                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                                 </el-upload>
                             </el-form-item>
+                        </el-col>
+                    </el-row>
+                </el-tab-pane>
+                <el-tab-pane label="最佳搭档" name="partners">
+                    <el-button size="small" @click="model.partners.push({})">
+                        <i class="el-icon-plus"></i> 添加英雄
+                    </el-button>
+                    <el-row type="flex" style="flex-wrap:wrap">
+                        <!-- 循环出英雄的所有技能 -->
+                        <el-col :md="12" v-for="(item,index) of model.partners" :key="index">
+                            <el-form-item label="英雄">
+                                <!-- filterable 可以筛选和过滤 -->
+                                <el-select v-model="item.hero" filterable>
+                                    <el-option
+                                        v-for="hero in heroes"
+                                        :key="hero._id"
+                                        :value="hero._id"
+                                        :label="hero.name"
+                                    ></el-option>
+                                </el-select>
+                            </el-form-item>
+
                             <el-form-item label="描述">
                                 <el-input type="textarea" v-model="item.description"></el-input>
                             </el-form-item>
-                             <el-form-item label="小提示">
-                                <el-input type="textarea" v-model="item.tips"></el-input>
-                            </el-form-item>
                             <el-form-item>
-                                <el-button size="small" type="danger" @click="model.skills.splice(index,1)">删除</el-button>
+                                <el-button
+                                    size="small"
+                                    type="danger"
+                                    @click="model.partners.splice(index,1)"
+                                >删除</el-button>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -152,10 +195,13 @@ export default {
             model: {
                 name: "",
                 avatar: "",
+                skills: [],
+                partners: [],
                 scores: {
                     difficul: 0
                 }
-            }
+            },
+            heroes:[]
         };
     },
     methods: {
@@ -185,12 +231,19 @@ export default {
             const res = await this.$http.get(`rest/categories`);
             this.categories = res.data;
         },
-        async fetchItem() {
+        async fetchItems() {
             /**
              * 获取所有的物品
              */
             const res = await this.$http.get(`rest/items`);
             this.items = res.data;
+        },
+        async fetchHeroes() {
+            /**
+             * 获取所有的物品
+             */
+            const res = await this.$http.get(`rest/heroes`);
+            this.heroes = res.data;
         },
         async save() {
             /**
@@ -218,13 +271,13 @@ export default {
         /**
          * 进入当前页面如果存在id就查询物品
          */
-        this.fetchItem();
+        this.fetchItems();
         this.fetchCategories();
         this.id && this.fetch();
+        this.heroes = this.fetchHeroes();
     }
 };
 </script>
 
 <style>
-
 </style>

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Main from './views/Main.vue'
 import Article from './views/Article.vue'
+import Hero from './views/Hero.vue'
 
 Vue.use(Router)
 
@@ -21,6 +22,12 @@ export default new Router({
         // 将path中的参数都映射为组件参数
         props: true
       }]
+    },{
+      path: '/heroes/:id',
+      name: 'hero',
+      component: Hero,
+      // 将path中的参数都映射为组件参数
+      props: true
     },
     {
       path: '/about',
