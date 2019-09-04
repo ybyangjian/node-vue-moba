@@ -24,7 +24,8 @@ Vue.component('m-list-card',ListCard)
 import axios from 'axios'
 Vue.prototype.$http = axios.create({
   // 请求根地址
-  baseURL:'http://localhost:3000/web/api'
+  baseURL:process.env.VUE_APP_URL || '/web/api'
+  // baseURL:'http://localhost:3000/web/api'
 })
 
 new Vue({

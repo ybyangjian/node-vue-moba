@@ -4,7 +4,8 @@ import router from './router'
 
 const http = axios.create({
     // 后台的根接口
-    baseURL: 'http://localhost:3000/admin/api'
+    baseURL:process.env.VUE_APP_API_URL || '/admin/api',
+    // baseURL: 'http://localhost:3000/admin/api'
 })
 
 // 在前端请求头中添加Authorization，里面带有Bearer + token，用于验证
